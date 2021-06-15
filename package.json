@@ -1,0 +1,32 @@
+{
+  "name": "budget-api",
+  "version": "1.0.0",
+  "description": "A budgeting app API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teyannaearle/budget-api.git"
+  },
+  "keywords": [
+    "express",
+    "api",
+    "budgeting"
+  ],
+  "author": "Teyanna Earle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teyannaearle/budget-api/issues"
+  },
+  "homepage": "https://github.com/teyannaearle/budget-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "engines": {
+    "node": "15.3.0"
+  }
+}
