@@ -1,4 +1,5 @@
 //Dependencies
+const transactionsController = require("./controllers/transactionsController")
 const express = require("express");
 const cors = require("cors")
 
@@ -16,8 +17,14 @@ app.use(cors());
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Budgeting App - API");
 });
+
+app.use("/transactions", transactionsController)
+
+app.get("*", (req, res) => {
+  res.status(404).send("Page not Found")
+})
 
 
 module.exports = app
