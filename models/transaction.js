@@ -3,20 +3,20 @@ module.exports = [
         id: 5,
         name: "tey",
         from: "mom",
-        date: "1/21",
+        date: "2021-06-05",
         amount: 200
     },
     {
-        id: 6,
+        id: 6-9-9,
         name: "dustin",
-        date: "1/21",
+        date: "2021-06-05",
         amount: 200,
         from: "mom",
     },
     {
         id:7,
         name: "koks",
-        date: "1/21",
+        date: "2021-06-05",
         amount: 200,
         from: "mom",
     }

@@ -1,9 +1,26 @@
 const express = require("express")
+var moment = require('moment');
+
+var uuid = require('uuid')
+
 const transactions = express.Router()
 const transactionsArray = require ("../models/transaction")
 
-// const transactionIdNumber = 0
-// let testNum = 0
+
+const validateBody = (req, res, next) => {
+    const { name, from, date, amount} = req.body
+    
+    let result = moment(date, 'YYYY-MM-DD',true).isValid();
+
+    if (!name || !from || !date || !amount ) {
+        res.status(400).send()
+    } else if (result){
+        next()
+    } else {
+        res.status(400).send()
+    }
+
+}
 
 transactions.get("/" , (req, res) => {
     res.status(200).json(transactionsArray)
@@ -22,13 +39,14 @@ transactions.get("/:id", (req,res) => {
 
 })
 
-transactions.post("/", (req, res) => {
-    // testNum += 1
-    // let body = {...req.body, id: testNum}
-    transactionsArray.push(req.body)
-
-
-    // res.status(200).json(transactionsArray)
+transactions.post("/", validateBody, (req, res) => {
+    if (!req.body.id){
+        let id = uuid.v4()
+        transactionsArray.push({...req.body, id: id})
+    } else {
+        transactionsArray.push(req.body)
+    }
+    
     res.json(transactionsArray[transactionsArray.length -1])
 })
 
