@@ -42,7 +42,7 @@ transactions.get("/:id", (req,res) => {
 transactions.post("/", validateBody, (req, res) => {
     if (!req.body.id){
         let id = uuid.v4()
-        transactionsArray.push({...req.body, id: id})
+        transactionsArray.push({id: id, ...req.body})
     } else {
         transactionsArray.push(req.body)
     }
