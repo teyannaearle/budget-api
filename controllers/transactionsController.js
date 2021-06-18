@@ -28,7 +28,7 @@ transactions.get("/" , (req, res) => {
 
 transactions.get("/:id", (req,res) => {
     const { id } = req.params
-    const matchesID = (transaction) => transaction.id === Number(id)
+    const matchesID = (transaction) => transaction.id === id
     const idx = transactionsArray.findIndex(matchesID)
 
     if (idx >= 0){
@@ -41,7 +41,7 @@ transactions.get("/:id", (req,res) => {
 
 transactions.post("/", validateBody, (req, res) => {
     if (!req.body.id){
-        let id = uuid.v4()
+        let id = transactionsArray[transactionsArray.length -1].id +1
         transactionsArray.push({id: id, ...req.body})
     } else {
         transactionsArray.push(req.body)
@@ -52,7 +52,7 @@ transactions.post("/", validateBody, (req, res) => {
 
 transactions.delete("/:id", (req, res) => {
     const { id } = req.params
-    const matchesID = (transaction) => transaction.id === Number(id)
+    const matchesID = (transaction) => transaction.id === id
     const idx = transactionsArray.findIndex(matchesID)
 
     if (idx >= 0){
@@ -65,7 +65,7 @@ transactions.delete("/:id", (req, res) => {
 
 transactions.put("/:id", (req, res) => {
     const { id } = req.params
-    const matchesID = (transaction) => transaction.id === Number(id)
+    const matchesID = (transaction) => transaction.id === id
     const idx = transactionsArray.findIndex(matchesID)
 
     if (idx >=0){
