@@ -5,11 +5,11 @@ const transactions = express.Router();
 const transactionsArray = require("../models/transaction");
 
 const validateBody = (req, res, next) => {
-  const { name, from, date, amount } = req.body;
+  const { name, from, date, amount} = req.body;
 
   let result = moment(date, "YYYY-MM-DD", true).isValid();
 
-  if (!name || !from || !date || !amount) {
+  if (!name || !from || !date || !amount ) {
     res.status(400).send();
   } else if (result) {
     next();
@@ -35,14 +35,37 @@ transactions.get("/:id", (req, res) => {
 });
 
 transactions.post("/", validateBody, (req, res) => {
+  // let copy = req.body
+  // if (copy.negative){
+  //   copy.amount = copy.amount * -1
+  // }
+
+  // if (!copy.id) {
+  //   if (transactionsArray[0]) {
+  //     let id = transactionsArray[transactionsArray.length - 1].id + 1;
+  //     transactionsArray.push({ id: id, ...copy.body });
+  //   } else {
+  //     transactionsArray.push({ id: 0, ...copy.body });
+  //   }
+  // } else {
+  //   transactionsArray.push(copy.body);
+  // }
+  if (req.body.negative){
+    req.body.amount = req.body.amount * -1
+  }
+
+
   if (!req.body.id) {
     if (transactionsArray[0]) {
+  
       let id = transactionsArray[transactionsArray.length - 1].id + 1;
       transactionsArray.push({ id: id, ...req.body });
     } else {
+
       transactionsArray.push({ id: 0, ...req.body });
     }
   } else {
+
     transactionsArray.push(req.body);
   }
 
@@ -69,7 +92,10 @@ transactions.put("/:id", (req, res) => {
 
   if (idx >= 0) {
     const transactionID = transactionsArray[idx].id;
-    transactionsArray[idx] = { ...req.body, id: transactionID };
+    if (req.body.negative){
+      req.body.amount = req.body.amount * -1
+    }
+    transactionsArray[idx] = { id: transactionID, ...req.body};
     res.status(200).json(transactionsArray);
   } else {
     res.redirect("/404");
