@@ -40,12 +40,20 @@ transactions.get("/:id", (req,res) => {
 })
 
 transactions.post("/", validateBody, (req, res) => {
-    if (!req.body.id){
-        let id = transactionsArray[transactionsArray.length -1].id +1
-        transactionsArray.push({id: id, ...req.body})
+    // if (!req.body.id){
+    //     let id = transactionsArray[transactionsArray.length -1].id +1
+    //     transactionsArray.push({id: id, ...req.body})
+    // } else {
+    //     transactionsArray.push(req.body)
+    // }
+    if (transactionsArray[0]){
+       let id = transactionsArray[transactionsArray.length -1].id +1
+       transactionsArray.push({id: id, ...req.body})
     } else {
-        transactionsArray.push(req.body)
+        let id = 0
+        transactionsArray.push({id: id, ...req.body})
     }
+
     
     res.json(transactionsArray[transactionsArray.length -1])
 })
