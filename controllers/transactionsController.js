@@ -1,8 +1,6 @@
 const express = require("express");
 var moment = require("moment");
 
-var uuid = require("uuid");
-
 const transactions = express.Router();
 const transactionsArray = require("../models/transaction");
 
@@ -47,13 +45,6 @@ transactions.post("/", validateBody, (req, res) => {
   } else {
     transactionsArray.push(req.body);
   }
-  // if (transactionsArray[0]){
-  //    let id = transactionsArray[transactionsArray.length -1].id +1
-  //    transactionsArray.push({id: id, ...req.body})
-  // } else {
-  //     let id = 0
-  //     transactionsArray.push({id: id, ...req.body})
-  // }
 
   res.json(transactionsArray[transactionsArray.length - 1]);
 });
