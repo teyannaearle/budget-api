@@ -26,9 +26,9 @@ transactions.get("/sum", (req, res) => {
   let sum = 0
   for (let transaction of transactionsArray){
     if (transaction.negative){
-      sum += (transaction.amount * -1)
+      sum += (Number(transaction.amount) * -1)
     } else {
-      sum += (transaction.amount)
+      sum += (Number(transaction.amount))
     }
   }
   res.status(200).json(sum);
@@ -50,15 +50,12 @@ transactions.get("/:id", (req, res) => {
 transactions.post("/", validateBody, (req, res) => {
   if (!req.body.id) {
     if (transactionsArray[0]) {
-  
       let id = transactionsArray[transactionsArray.length - 1].id + 1;
       transactionsArray.push({ id: id, ...req.body });
     } else {
-
       transactionsArray.push({ id: 0, ...req.body });
     }
   } else {
-
     transactionsArray.push(req.body);
   }
 
