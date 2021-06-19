@@ -22,6 +22,18 @@ transactions.get("/", (req, res) => {
   res.status(200).json(transactionsArray);
 });
 
+transactions.get("/sum", (req, res) => {
+  let sum = 0
+  for (let transaction of transactionsArray){
+    if (transaction.negative){
+      sum += (transaction.amount * -1)
+    } else {
+      sum += (transaction.amount)
+    }
+  }
+  res.status(200).json(sum);
+});
+
 transactions.get("/:id", (req, res) => {
   const { id } = req.params;
   const matchesID = (transaction) => transaction.id === Number(id);
@@ -33,6 +45,7 @@ transactions.get("/:id", (req, res) => {
     res.redirect("/404");
   }
 });
+
 
 transactions.post("/", validateBody, (req, res) => {
   if (!req.body.id) {
