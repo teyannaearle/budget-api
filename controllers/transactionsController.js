@@ -53,7 +53,7 @@ transactions.post("/", validateBody, (req, res) => {
       let id = transactionsArray[transactionsArray.length - 1].id + 1;
       transactionsArray.push({ id: id, ...req.body });
     } else {
-      transactionsArray.push({ id: 0, ...req.body });
+      transactionsArray.push({ id: 23, ...req.body });
     }
   } else {
     transactionsArray.push(req.body);
